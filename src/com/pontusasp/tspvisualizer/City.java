@@ -3,13 +3,14 @@ package com.pontusasp.tspvisualizer;
 import com.pontusasp.game.core.Drawable;
 import com.pontusasp.game.core.Dynamic;
 import com.pontusasp.game.shapes.Line;
+import com.pontusasp.game.shapes.Oval;
 import com.pontusasp.game.shapes.Rectangle;
 
 import java.awt.*;
 
 public class City implements Drawable, Dynamic {
 
-    private Rectangle rect;
+    private Oval rect;
     private boolean visited = false;
     public final int id;
     private int visitedInOrder = -1;
@@ -19,15 +20,19 @@ public class City implements Drawable, Dynamic {
 
     public City(int id, float x, float y, int total) {
         this.id = id;
-        this.X = x;
-        this.Y = y;
-        rect = new Rectangle();
+        int SIZE = 24;
+        this.X = x - (SIZE / 2f) / TspVisualizer.WIDTH;
+        this.Y = y - (SIZE / 2f) / TspVisualizer.HEIGHT;
+        rect = new Oval();
         rect.setColor(new Color(0, 200 - (int) ((1 - (float) id / total) * 200), 255 - (int) ((float) id / total * 255)));
-        rect.width = rect.height = 50;
+        rect.width = rect.height = SIZE;
         rect.hollow = true;
         rect.setPosition(convertPointX(x), convertPointY(y));
         road.setOrigin(cityCenterX(), cityCenterY());
         road.setColor(Color.ORANGE);
+        //road.ruler = true;
+        road.rulerScaleX = 100f/TspVisualizer.WIDTH;
+        road.rulerScaleY = 100f/TspVisualizer.HEIGHT;
     }
 
     public void connectCity(City city) {
@@ -61,9 +66,9 @@ public class City implements Drawable, Dynamic {
     public void draw(Graphics g) {
         rect.draw(g);
         g.setColor(Color.WHITE);
-        g.drawString("" + id, Math.round(convertPointX(X) + 22), Math.round(convertPointY(Y) + 28));
-        if (visited)
-            g.drawString("(" + visitedInOrder + ")", Math.round(convertPointX(X) + 18), Math.round(convertPointY(Y) + 12));
+        //g.drawString("" + id, Math.round(convertPointX(X) + 22), Math.round(convertPointY(Y) + 28));
+       // if (visited)
+        //    g.drawString("(" + visitedInOrder + ")", Math.round(convertPointX(X) + 18), Math.round(convertPointY(Y) + 12));
         if (connectedCity != null) {
             road.draw(g);
         }

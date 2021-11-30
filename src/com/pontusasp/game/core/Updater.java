@@ -37,7 +37,8 @@ public class Updater implements Dynamic {
 
     @Override
     public void update(float delta) {
-        for (Dynamic item : queue) {
+        for (int i = 0, queueSize = queue.size(); i < queueSize; i++) {
+            Dynamic item = queue.get(i);
             item.update(delta);
         }
     }

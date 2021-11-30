@@ -41,7 +41,8 @@ public class Panel extends JPanel {
     public void paintComponent(Graphics g) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, width, height);
-        for(Drawable drawable : drawables) {
+        for (int i = 0, drawablesSize = drawables.size(); i < drawablesSize; i++) {
+            Drawable drawable = drawables.get(i);
             drawable.draw(graphics);
         }
         g.drawImage(graphicsBuffer, 0, 0, null);
