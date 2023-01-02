@@ -4,8 +4,12 @@ import com.pontusasp.game.core.Panel;
 import com.pontusasp.game.core.Updater;
 import com.pontusasp.game.core.Window;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,6 +30,8 @@ public class TspVisualizer extends Panel implements MouseListener {
     public TspVisualizer() {
         super(WIDTH, HEIGHT);
         panel = this;
+        setClearColor(new Color(0, 17, 30));
+        //setClearColor(Color.WHITE);
         update = new Updater();
 
         getNodes();
@@ -109,8 +115,24 @@ public class TspVisualizer extends Panel implements MouseListener {
         new TspVisualizer();
     }
 
+    public void saveImage() {
+        try {
+            if (ImageIO.write(getGraphicsBuffer(), "png", new File("./output_image.png")))
+            {
+                System.out.println("-- saved");
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (e.isControlDown()) {
+            saveImage();
+            return;
+        }
         if (N != 0) return;
         float x = (float) e.getX() / WIDTH * 100;
         float y = (float) e.getY() / HEIGHT * 100;

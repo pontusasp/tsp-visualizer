@@ -20,7 +20,7 @@ public class City implements Drawable, Dynamic {
 
     public City(int id, float x, float y, int total) {
         this.id = id;
-        int SIZE = 24;
+        int SIZE = 50;
         this.X = x - (SIZE / 2f) / TspVisualizer.WIDTH;
         this.Y = y - (SIZE / 2f) / TspVisualizer.HEIGHT;
         rect = new Oval();
@@ -29,8 +29,9 @@ public class City implements Drawable, Dynamic {
         rect.hollow = true;
         rect.setPosition(convertPointX(x), convertPointY(y));
         road.setOrigin(cityCenterX(), cityCenterY());
-        road.setColor(Color.ORANGE);
-        //road.ruler = true;
+        road.setColor(Color.DARK_GRAY);
+        road.fontColor = Color.WHITE;
+        road.ruler = true;
         road.rulerScaleX = 100f/TspVisualizer.WIDTH;
         road.rulerScaleY = 100f/TspVisualizer.HEIGHT;
     }
@@ -66,8 +67,8 @@ public class City implements Drawable, Dynamic {
     public void draw(Graphics g) {
         rect.draw(g);
         g.setColor(Color.WHITE);
-        //g.drawString("" + id, Math.round(convertPointX(X) + 22), Math.round(convertPointY(Y) + 28));
-       // if (visited)
+        g.drawString("" + id, Math.round(convertPointX(X) + 22), Math.round(convertPointY(Y) + 28));
+        //if (visited)
         //    g.drawString("(" + visitedInOrder + ")", Math.round(convertPointX(X) + 18), Math.round(convertPointY(Y) + 12));
         if (connectedCity != null) {
             road.draw(g);

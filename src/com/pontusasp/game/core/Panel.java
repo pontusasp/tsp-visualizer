@@ -12,6 +12,7 @@ public class Panel extends JPanel {
 
     private BufferedImage graphicsBuffer;
     private Graphics graphics;
+    private Color clearColor = Color.BLACK;
 
     private ArrayList<Drawable> drawables = new ArrayList<>();
 
@@ -23,6 +24,10 @@ public class Panel extends JPanel {
         setPreferredSize(new Dimension(width, height));
         graphicsBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         graphics = graphicsBuffer.getGraphics();
+    }
+
+    public void setClearColor(Color color) {
+        clearColor = color;
     }
 
     public void addDrawable(Drawable drawable) {
@@ -37,9 +42,13 @@ public class Panel extends JPanel {
         drawables.remove(index);
     }
 
+    public BufferedImage getGraphicsBuffer() {
+        return graphicsBuffer;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
-        graphics.setColor(Color.BLACK);
+        graphics.setColor(clearColor);
         graphics.fillRect(0, 0, width, height);
         for (int i = 0, drawablesSize = drawables.size(); i < drawablesSize; i++) {
             Drawable drawable = drawables.get(i);
